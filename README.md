@@ -4,7 +4,7 @@ Sistem Monitoring, Evaluasi, dan Analisis Indikator Mutu **RSAU Prof. dr. Abdulr
 
 *Sagraha Abhipraya Nawasena — Kesehatan untuk Kedaulatan.*
 
-SPA Vite, React, TypeScript, Tailwind CSS, Recharts, Lucide, React Router, dan Zod. Tidak membutuhkan backend, database, akun, API aplikasi, atau layanan berbayar. Seluruh UI berbahasa Indonesia. Monogram RSAS digunakan karena logo resmi tidak dilampirkan.
+SPA Vite, React, TypeScript, Tailwind CSS, Recharts, Lucide, React Router, dan Zod. Tidak membutuhkan backend, database, akun, API aplikasi, atau layanan berbayar. Seluruh UI berbahasa Indonesia. Logo RSAU dari berkas JPEG di `docs/` digunakan pada sidebar, kop laporan, dan favicon. Aset web tersedia di `public/`.
 
 ## Menjalankan
 
