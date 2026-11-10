@@ -160,12 +160,9 @@ fieldset {
 .brand-mark {
   height: 44px;
   width: 44px;
-  border: 1px solid #436576;
-  border-radius: 12px;
-  display: grid;
-  place-items: center;
-  color: #77e1c9;
-  background: #17394b;
+  flex-shrink: 0;
+  object-fit: contain;
+  border-radius: 50%;
 }
 .brand b {
   font-size: 24px;
@@ -1157,17 +1154,12 @@ details label {
   border-bottom: 2px solid #25495d;
   margin-bottom: 25px;
 }
-.report-monogram {
+.report-logo {
   height: 68px;
   width: 68px;
-  display: grid;
-  place-items: center;
-  border: 2px solid #25495d;
-  border-radius: 15px;
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  color: #25495d;
+  flex-shrink: 0;
+  object-fit: contain;
+  border-radius: 50%;
 }
 .report-letterhead h2 {
   font-size: 16px;
@@ -1641,8 +1633,9 @@ details label {
   .report-letterhead strong {
     font-size: 12px;
   }
-  .report-monogram {
-    display: none;
+  .report-logo {
+    height: 48px;
+    width: 48px;
   }
   .heatmap td {
     padding: 5px;

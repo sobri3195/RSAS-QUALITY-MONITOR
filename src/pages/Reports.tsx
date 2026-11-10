@@ -84,7 +84,13 @@ export default function Reports() {
       </Heading>
       <article className="report">
         <div className="report-letterhead">
-          <span className="report-monogram">RSAS</span>
+          <img
+            className="report-logo"
+            src="/logo-rsau.jpeg"
+            alt="Logo RSAU Prof. dr. Abdulrachman Saleh"
+            width={68}
+            height={68}
+          />
           <div>
             <h2>RSAU PROF. DR. ABDULRACHMAN SALEH</h2>
             <p>Sistem Monitoring, Evaluasi, dan Analisis Indikator Mutu</p>

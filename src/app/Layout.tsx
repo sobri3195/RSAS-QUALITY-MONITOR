@@ -1,6 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
 import {
-  Activity,
   LayoutDashboard,
   ClipboardPenLine,
   Hospital,
@@ -45,9 +44,13 @@ export default function Layout() {
     <div className="app-shell">
       <aside className={`sidebar ${open ? "open" : ""}`}>
         <NavLink to="/" className="brand">
-          <span className="brand-mark">
-            <Activity size={25} />
-          </span>
+          <img
+            className="brand-mark"
+            src="/logo-rsau.jpeg"
+            alt="Logo RSAU Prof. dr. Abdulrachman Saleh"
+            width={44}
+            height={44}
+          />
           <div>
             <b>
               RSAS<span>QUALITY MONITOR</span>
