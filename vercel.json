@@ -4,9 +4,32 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "routes": [
-    { "handle": "filesystem" },
-    { "src": "/assets/.*", "status": 404 },
-    { "src": "/[^?]*\\.[^/]+", "status": 404 },
-    { "src": "/.*", "dest": "/index.html" }
+    {
+      "src": "/(.*)",
+      "headers": {
+        "X-Content-Type-Options": "nosniff",
+        "Referrer-Policy": "no-referrer",
+        "X-Frame-Options": "DENY",
+        "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+        "Content-Security-Policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://*.supabase.co wss://*.supabase.co; img-src 'self' data: blob:; font-src 'self' data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
+      },
+      "continue": true
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/assets/.*",
+      "status": 404
+    },
+    {
+      "src": "/[^?]*\\.[^/]+",
+      "status": 404
+    },
+    {
+      "src": "/.*",
+      "dest": "/index.html"
+    }
   ]
 }

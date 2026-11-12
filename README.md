@@ -4,7 +4,13 @@ Sistem Monitoring, Evaluasi, dan Analisis Indikator Mutu **RSAU Prof. dr. Abdulr
 
 *Sagraha Abhipraya Nawasena — Kesehatan untuk Kedaulatan.*
 
-SPA Vite, React, TypeScript, Tailwind CSS, Recharts, Lucide, React Router, dan Zod. Tidak membutuhkan backend, database, akun, API aplikasi, atau layanan berbayar. Seluruh UI berbahasa Indonesia. Logo RSAU dari berkas JPEG di `docs/` digunakan pada sidebar, kop laporan, dan favicon. Aset web tersedia di `public/`.
+SPA Vite, React, TypeScript, Tailwind CSS, Recharts, Lucide, React Router, dan Zod. Workflow multiuser baru memakai Supabase/PostgreSQL + Auth + RLS + Realtime. Tanpa backend, tersedia DEMO MODE sintetis yang jelas berlabel; arsip lokal v1 tetap dapat digunakan. Seluruh UI berbahasa Indonesia. Logo RSAU dari berkas JPEG di `docs/` digunakan pada sidebar, kop laporan, dan favicon. Aset web tersedia di `public/`.
+
+## Upgrade multiuser
+
+Alur baru: **Petugas Unit → Validator → Tim Mutu → Dashboard Pimpinan**. Mulai dari `/unit/input` atau `/pimpinan/dashboard`; rute lama tetap tersedia sebagai arsip lokal, termasuk `/legacy`. localStorage lama tidak dihapus atau dijadikan sumber resmi multiuser.
+
+Lihat [audit dan arsitektur](docs/AUDIT-MULTIUSER.md), [konfigurasi Supabase, panduan role, migrasi/backup/rollback](docs/MULTIUSER.md), dan [hasil validasi](docs/VALIDASI.md). Contoh variabel publik tersedia di `.env.example`. Jangan masukkan service role key ke frontend.
 
 ## Menjalankan
 
@@ -27,7 +33,7 @@ npm run test:e2e   # pengujian Chromium dengan Playwright
 
 Pengujian browser memakai `/usr/bin/chromium` bila tersedia, atau Chromium Playwright (`npx playwright install chromium`). Override opsional: `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`. CI GitHub Actions memasang Chromium serta menjalankan lint, unit test, build, dan tes browser. Tes memakai konteks browser terisolasi; angka uji tidak ditanamkan ke dataset aplikasi.
 
-## Alur pemakaian
+## Alur pemakaian arsip lokal v1
 
 1. **Master** otomatis memuat tepat 34 indikator (10 prioritas RS, 24 unit), tanpa data capaian. JSON sumber dipertahankan di `src/data/rsas_master_indikator_2026.json`.
 2. Pilih persona **Admin/Pimpinan** untuk penugasan indikator RS ke unit dan penyuntingan profil. Tidak ada penugasan RS otomatis. HLIU/HILU dan Laundry/Loundry adalah alias satu unit. `RSAS-U-XX` adalah ID internal, bukan kode resmi.
@@ -69,10 +75,10 @@ Dataset SIMULASI tersedia **opt-in** di Bantuan. Terpisah dari aktual, berlabel 
 
 1. Impor repositori ke Vercel, pilih preset **Vite**, Node.js 22.x, install `npm ci`, build `npm run build`, output `dist`.
 2. `vercel.json` sudah mengatur build dan fallback SPA: filesystem dilayani dahulu, asset hilang/URL berekstensi mengembalikan 404, rute aplikasi seperti `/verification` kembali ke `index.html`.
-3. Tidak ada environment variable atau rahasia aplikasi yang dibutuhkan. Tidak ada database yang harus disiapkan.
+3. Untuk workflow resmi, konfigurasi `VITE_DATA_MODE=production`, URL Supabase dan publishable/anon key, jalankan migration SQL, lalu siapkan Auth/role/penugasan sesuai [panduan](docs/MULTIUSER.md). Tanpa backend, rute workflow menampilkan DEMO sintetis. Arsip v1 tetap lokal.
 4. Setelah deployment, uji refresh `/input`, `/reports`, `/indicator/IMP-RS-01`, dan pastikan `/assets/tidak-ada.js` benar-benar 404. Deploy aktual ke Vercel memerlukan akun/proyek Vercel dan dilakukan terpisah; konfigurasi siap di repositori.
 
-Data terikat **origin/domain**. Mengganti URL preview ke domain produksi tidak memindahkan localStorage: ekspor backup dari origin lama dan impor pada origin baru. Vercel hanya menayangkan frontend; live server/proses lokal tidak diperlukan di produksi.
+Data terikat **origin/domain**. Mengganti URL preview ke domain produksi tidak memindahkan localStorage: ekspor backup dari origin lama dan impor pada origin baru. Vercel menayangkan frontend; Supabase menyimpan data resmi multiuser. Live server/proses Vite lokal tidak diperlukan di produksi.
 
 ## Berkas utama
 
@@ -87,10 +93,10 @@ Data terikat **origin/domain**. Mengganti URL preview ke domain produksi tidak m
 - `src/tests/`, `e2e/`: pengujian logika dan browser.
 - `docs/spesifikasi-sumber.md`: dokumen spesifikasi yang diberikan pengguna.
 
-## Batas keamanan dan roadmap
+## Batas keamanan arsip lokal v1
 
 Persona client-side **bukan autentikasi/otorisasi aman**. Pengguna browser dapat mengubah storage/JSON. Audit dan verifikasi lokal bukan bukti kriptografis atau tanda tangan digital. Data terimpor harus ditinjau, dan akses perangkat serta distribusi backup harus dikelola organisasi. Tidak ada sinkronisasi otomatis antarunit atau tab; perlindungan revisi tab mencegah overwrite usang saat menyimpan.
 
 **Jangan masukkan** nama/identitas pasien, NIK, rekam medis individual, kredensial asli, atau berkas sensitif ke aplikasi/backup. Gunakan agregat dan referensi dokumen tanpa identitas. localStorage/backup tidak dienkripsi; jangan mengandalkannya sebagai satu-satunya arsip. Tidak ada analitik remote, tracking, atau unggahan data ke SaaS.
 
-Opsi pengembangan berikutnya (belum diimplementasikan): backend multi-user, SSO, kontrol akses berbasis unit, database dan audit terpusat, persetujuan digital, pengaturan retensi, validasi klinis profil oleh Komite Mutu, serta konsolidasi dengan pencegahan hitung ganda terpusat.
+Workflow baru menambahkan backend multiuser, kontrol akses unit, audit server dan publikasi berjenjang. Batas persona lokal di atas tetap berlaku khusus arsip v1. SSO organisasi, tanda tangan digital tersertifikasi, kebijakan retensi dan validasi klinis master memerlukan konfigurasi/proses organisasi terpisah. Lihat batas validasi hosted pada panduan multiuser.

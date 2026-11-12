@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, Link } from "react-router-dom";
 import {
   LayoutDashboard,
   ClipboardPenLine,
@@ -246,6 +246,13 @@ export default function Layout() {
               ekspor data unit.
             </div>
           )}
+          <div className="alert info no-print">
+            Arsip lokal v1 — tidak tersinkronisasi. Verifikasi lokal tidak
+            menjadi publikasi resmi.
+            <Link className="text-link" to="/pimpinan/dashboard">
+              Buka alur Validator → Tim Mutu
+            </Link>
+          </div>
           <Outlet />
         </main>
         <footer>

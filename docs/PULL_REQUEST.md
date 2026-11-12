@@ -1,11 +1,11 @@
-# Implementasikan RSAS Quality Monitor dengan pelaporan unit dan konsolidasi lokal
+# Tambahkan workflow multiuser Validator → Tim Mutu → publikasi resmi
 
-Repositori sebelumnya kosong. Perubahan ini menambahkan SPA Vite/React/TypeScript dengan 34 master indikator dari JSON sumber, input numerator/denominator bulanan, draft otomatis, revisi, pengajuan dan verifikasi lokal, dashboard dan grafik Recharts, RCA/PDCA, serta laporan bulanan/triwulanan/tahunan yang dapat dicetak.
+Aplikasi sebelumnya menyimpan laporan dan persona di browser; verifikasi lokal tidak dapat menjadi otorisasi atau sinkronisasi lintas perangkat. Perubahan ini menambahkan workspace Supabase dengan Auth, RLS unit/indikator, RPC atomik, revisi append-only, bukti privat dan notifikasi. Pengajuan harus melewati Validator dan review akhir Tim Mutu sebelum masuk laporan resmi. Amendemen tetap memakai publikasi lama sampai penggantinya diterbitkan.
 
-Target konflik IMP-RS-06 dan SDM tetap belum disahkan; profil Humas tidak diisi dengan definisi buatan. Penilaian final hanya memakai data aktual terverifikasi yang memenuhi syarat. Agregasi memakai jumlah numerator/denominator dan memblokir sumber yang tidak sebanding. Snapshot profil melindungi histori dari perubahan master.
+Workspace baru menyediakan input/pengajuan/riwayat, dua inbox, dashboard/tren/heatmap, RCA, master berversi/target per periode, manajemen role/unit, audit, ekspor CSV/PNG/PDF dan migrasi arsip ke draft. Formula proporsi, rate, waktu dan jumlah memakai whitelist; agregasi tertimbang hanya menggabungkan definisi/target sebanding. Semua rute, data dan fitur v1 dipertahankan sebagai arsip lokal dengan penanda sumber data. Tanpa konfigurasi backend, workspace baru menggunakan DEMO sintetis terpisah; produksi yang salah konfigurasi gagal tertutup.
 
-Konsolidasi JSON menyertakan validasi skema, provenance, deduplikasi, preview, resolver konflik, dan audit. Tersedia backup/restore terkonfirmasi, CSV BOM, perlindungan kuota/storage rusak dan revisi lintas tab. Persona hanya penyederhanaan alur kerja; dataset tidak disinkronkan otomatis dan tidak memuat data pasien.
+Dua migration SQL, seed staging opt-in, konfigurasi Vercel/Auth, `.env.example`, audit arsitektur, panduan role, serta backup/rollback disertakan. Master sumber 34 indikator disalin sebagai konfigurasi tidak aktif: definisi/target klinis dan INM resmi perlu disahkan organisasi, bukan diisi dengan asumsi.
 
-README bahasa Indonesia, GitHub Actions, dan konfigurasi Vercel SPA disertakan. Tidak ada backend atau deployment produksi yang dibuat.
+Validasi lokal: lint; 78 tes unit/database termasuk RLS dan concurrent approval; build; 12 skenario Chromium; audit dependensi produksi tanpa kerentanan. Suite hosted multi-browser disediakan terpisah dan dilewati tanpa proyek/akun staging. Lihat `docs/VALIDASI.md` untuk hasil final.
 
-Validasi: `npm run lint`, `npm test`, `npm run build`, dan `npm run test:e2e`. Lihat `docs/VALIDASI.md` untuk hasil akhir yang benar-benar dijalankan.
+Sebelum penggunaan operasional: terapkan migration di Supabase, siapkan Auth/role/penugasan serta master/target periode, isi variabel publik Vercel, aktifkan Realtime dan opsional Cron, lalu jalankan suite staging dan restore test hosted. Tidak ada credential, akun produksi, deployment atau klaim sinkronisasi hosted yang dibuat dalam PR ini.
