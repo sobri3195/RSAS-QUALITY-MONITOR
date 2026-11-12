@@ -1,3 +1,24 @@
+# Validasi upgrade multiuser — 12 November 2026
+
+Lingkungan: Node.js 22.23.5, npm 10.9.9, Chromium sistem, PostgreSQL native 18.6 melalui dependency test. Migration menargetkan fitur PostgreSQL 15+; konfigurasi Supabase lokal menetapkan major 17. Tidak ada credential/proyek Supabase yang tersedia.
+
+| Pemeriksaan upgrade | Hasil |
+| --- | --- |
+| `npm run lint` | Lulus, tanpa warning ESLint |
+| `npm test` | 78 tes lulus; aturan lama/baru, migrasi v1, env guard dan database |
+| `npm run build` | TypeScript + Vite lulus |
+| `npm run test:e2e` | 12 skenario Chromium lulus |
+| `npm audit --omit=dev --audit-level=high` | 0 kerentanan produksi |
+| `npm run test:live` | 1 skenario dilewati: belum ada proyek/akun staging; bukan hasil lulus sinkronisasi |
+
+Database pengujian dibuat ulang dari SQL migration pada setiap run. Fixture hanya menyediakan kontrak platform Auth/Storage; query/RLS/row lock/transaksi dijalankan oleh PostgreSQL asli. Cakupan: denial anonymous/helper/direct write/escalation, cross-unit RLS, larangan self-validation, nilai proporsi/scalar, nol/N/A/missing, submit/reject/resubmit/clarification/publish/amend, idempotensi, concurrent approval, target historis, stale update, bukti privat, batas metadata, deaktivasi akun, reminder unik, perlindungan Admin terakhir dan logical backup/restore ke database baru dengan RLS tetap aktif. Source master 34 tetap tidak aktif dan tidak menanamkan pengukuran.
+
+Browser mencakup lima skenario lama, alur baru lengkap, refresh/stale tab, jenis N/A, pemisahan browser DEMO, preservasi storage v1 (termasuk JSON rusak), tampilan mobile, role menu, consent/signature upload, konfigurasi produksi tidak lengkap yang gagal tertutup, target scalar baru oleh Admin dan penutupan tindak lanjut.
+
+Belum dijalankan: Auth HTTP hosted, signed URL/Storage hosted, WebSocket Supabase hosted, multi-device hosted, email, Cron hosted, Vercel deployment dan pemulihan backup managed/objek Storage. Suite live staging opt-in tersedia; jangan menyimpulkan produksi tersinkronisasi dari tes DEMO atau database lokal. Peringatan anotasi komentar Zod saat bundling tidak fatal.
+
+---
+
 # Hasil validasi — 10 November 2026
 
 Dijalankan pada lingkungan cloud Linux dengan Node.js v24.22.1, npm 11.9.0, dan Chromium sistem. Semua dataset pengujian berada dalam memori/konteks browser terisolasi; tidak ditanamkan sebagai data aktual aplikasi.

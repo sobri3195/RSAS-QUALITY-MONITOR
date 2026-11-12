@@ -1771,3 +1771,186 @@ details label {
     margin: 14mm;
   }
 }
+/* The multiuser workspace retains the existing RSAS palette and layout. */
+.workflow-shell .sidebar {
+  overflow-y: auto;
+}
+.workflow-shell .brand b span {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+.workflow-shell .sidebar nav {
+  flex: 1;
+}
+.workflow-shell .sidebar-bottom {
+  margin-top: 22px;
+}
+.workflow-shell .persona {
+  gap: 12px;
+}
+.workflow-shell .global-filters {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+.workflow-filters {
+  flex-wrap: wrap;
+}
+.workflow-filters label {
+  flex: 1 1 130px;
+}
+.workflow-shell fieldset > * + *,
+.workflow-shell form > * + * {
+  margin-top: 18px;
+}
+.workflow-shell .form-grid label {
+  margin-top: 0;
+}
+.workflow-shell .form-content > p,
+.workflow-shell .form-content > div + p {
+  margin-bottom: 12px;
+}
+.workflow-shell .stats-grid {
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+.workflow-chart {
+  min-width: 0;
+  width: 100%;
+  padding: 16px 12px 0;
+}
+.workflow-tooltip {
+  border: 1px solid #dce4ea;
+  padding: 12px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px #17364a15;
+}
+.workflow-export {
+  display: flow-root;
+}
+.workflow-shell .report-letterhead {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px;
+  margin-bottom: 18px;
+  border-bottom: 2px solid #0f766e;
+}
+.workflow-sync {
+  font-size: 12px;
+  color: #5c7284;
+  margin-bottom: 20px;
+}
+.workflow-shell .text-link {
+  display: inline-flex;
+  gap: 6px;
+  margin: 4px 10px 4px 0;
+}
+.workflow-shell progress {
+  width: 80px;
+  accent-color: #0d9488;
+}
+.workflow-shell .heat-met {
+  background: #dff3ec;
+  color: #166b52;
+}
+.workflow-shell .heat-failed {
+  background: #fce9db;
+  color: #8f4920;
+}
+.workflow-shell .heat-na {
+  background: #edf1f5;
+}
+.workflow-shell .checkbox {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+}
+.workflow-shell .workflow-notifications {
+  position: fixed;
+  right: 24px;
+  top: 90px;
+  width: min(420px, 90vw);
+  max-height: 70vh;
+  overflow-y: auto;
+  z-index: 50;
+  box-shadow: 0 10px 70px #17364a33;
+}
+.workflow-notification {
+  padding: 16px;
+  border-bottom: 1px solid #edf1f5;
+}
+.workflow-notification small {
+  display: block;
+  color: #6b7c8a;
+}
+.workflow-login {
+  margin: 8vh auto;
+  padding: 30px;
+  max-width: 440px;
+  background: white;
+  border: 1px solid #dce4ea;
+  border-radius: 14px;
+}
+.workflow-login > *,
+.workflow-login form > * {
+  margin-bottom: 20px;
+}
+@media (max-width: 760px) {
+  .workflow-shell .topbar {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .workflow-shell .persona {
+    width: 100%;
+  }
+  .workflow-shell .global-filters {
+    position: static;
+  }
+  .workflow-shell .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .workflow-shell h1 {
+    font-size: 25px;
+  }
+}
+@media print {
+  .workflow-shell .topbar,
+  .workflow-shell .workspace-label,
+  .workflow-shell .workflow-notifications,
+  .workflow-shell .workflow-sync {
+    display: none !important;
+  }
+  .workflow-shell .panel {
+    break-inside: avoid;
+  }
+  .workflow-shell .report-letterhead {
+    display: flex !important;
+  }
+}
+
+.workflow-shell .workflow-filters label,
+.workflow-shell .workflow-filters label:nth-child(2) {
+  flex: 1 1 160px;
+  min-width: 130px;
+}
+.workflow-shell .workflow-filters input {
+  width: 100%;
+}
+@media (max-width: 760px) {
+  .workflow-shell .topbar {
+    height: auto;
+    min-height: 100px;
+    padding: 12px 16px;
+  }
+  .workflow-shell .topbar .institution {
+    font-size: 9px;
+    flex: 1;
+    max-width: 260px;
+  }
+  .workflow-shell .persona {
+    justify-content: space-between;
+  }
+}
